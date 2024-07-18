@@ -6,16 +6,28 @@ class ScoreBoard(Turtle):
     def __init__(self):
         super().__init__()
         self.score = 0
+        self.high_score = 0
         self.penup()
         self.hideturtle()
         self.color("white")
         self.goto(0, config["HEIGHT"] / 2 - config["MOVE_DISTANCE"])
-        self.write(f"Score: {self.score}", move=False, align="center", font=('Arial', 20, 'normal'))
+        self.display_score()
+
+    def display_score(self):
+        self.clear()
+        self.write(f"Score: {self.score}, High score: {self.high_score}", move=False, align="center", font=('Arial', 20, 'normal'))
+
 
     def update_score(self):
         self.score += 1
-        self.clear()
-        self.write(f"Score: {self.score}", move=False, align="center", font=('Arial', 20, 'normal'))
+        if self.score > self.high_score:
+            self.high_score = self.score
+        self.display_score()
+
+
+    def reset_score(self):
+        self.score = 0
+
 
     def game_over(self):
         self.clear()
