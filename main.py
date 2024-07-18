@@ -7,12 +7,13 @@ from configuration import config
 
 
 
-def restart_game(snake: Snake, scoreboard: ScoreBoard, screen: Screen):
+def restart_game(snake: Snake, scoreboard: ScoreBoard, screen: Screen, food: Food):
     scoreboard.game_over()
     screen.update()
     time.sleep(3)
     scoreboard.reset_score()
     snake.reset_snake()
+    food.refresh(snake.get_body_parts_coordinates())
 
 
 screen = Screen()
@@ -51,13 +52,13 @@ while snake.is_alive:
         snake.head.ycor() < -(config["HEIGHT"]/2 - config["MOVE_DISTANCE"]) 
     ):
         #snake.is_alive = False
-        restart_game(snake, scoreboard, screen)
+        restart_game(snake, scoreboard, screen, food)
     
 
     for part in snake.body_parts[1:]:
         if snake.head.distance(part) < 10:
             #snake.is_alive = False
-            restart_game(snake, scoreboard, screen)
+            restart_game(snake, scoreboard, screen, food)
 
 screen.update()
 screen.exitonclick()
