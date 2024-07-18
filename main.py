@@ -6,6 +6,15 @@ from scoreboard import ScoreBoard
 from configuration import config
 
 
+
+def restart_game(snake: Snake, scoreboard: ScoreBoard, screen: Screen):
+    scoreboard.game_over()
+    screen.update()
+    time.sleep(3)
+    scoreboard.reset_score()
+    snake.reset_snake()
+
+
 screen = Screen()
 screen.setup(width=config["WIDTH"], height=config["HEIGHT"])
 screen.bgcolor("black")
@@ -41,12 +50,14 @@ while snake.is_alive:
         snake.head.ycor() > config["HEIGHT"]/2 - config["MOVE_DISTANCE"] or
         snake.head.ycor() < -(config["HEIGHT"]/2 - config["MOVE_DISTANCE"]) 
     ):
-        snake.is_alive = False
+        #snake.is_alive = False
+        restart_game(snake, scoreboard, screen)
+    
 
     for part in snake.body_parts[1:]:
         if snake.head.distance(part) < 10:
-            snake.is_alive = False
+            #snake.is_alive = False
+            restart_game(snake, scoreboard, screen)
 
-scoreboard.game_over()
 screen.update()
 screen.exitonclick()

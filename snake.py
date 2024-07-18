@@ -3,13 +3,13 @@ from configuration import config
 
 class Snake:
     def __init__(self):
+        self.create_snake()
+
+    def create_snake(self):
         self.body_parts = []
         self.length = 0
         self.head = None
         self.is_alive = True
-        self.create_snake()
-
-    def create_snake(self):
         for position in [tuple(item) for item in config["STARTING_POSITIONS"]]:
             mbappe = Turtle(shape="square")
             mbappe.penup()
@@ -18,6 +18,13 @@ class Snake:
             self.body_parts.append(mbappe)
             self.length += 1
         self.head = self.body_parts[0]
+
+    def reset_snake(self):
+        for segment in self.body_parts:
+            segment.hideturtle()
+            segment.goto(1000, 1000)
+        self.body_parts.clear()
+        self.create_snake()
 
     def get_body_parts_coordinates(self):
         return [[int(round(mbappe.xcor(), 2)), int(round(mbappe.ycor(), 2))] for mbappe in self.body_parts]

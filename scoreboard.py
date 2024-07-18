@@ -27,12 +27,15 @@ class ScoreBoard(Turtle):
 
     def reset_score(self):
         self.score = 0
+        self.color("white")
+        self.goto(0, config["HEIGHT"] / 2 - config["MOVE_DISTANCE"])
+        self.display_score()
 
 
     def game_over(self):
         self.clear()
         self.goto(0, 0)
         self.color("blue")
-        self.write(f"Game over.", move=False, align="center", font=('Arial', 20, 'normal'))
+        self.write(f"Game over. Restart loading...", move=False, align="center", font=('Arial', 20, 'normal'))
         self.goto(0, -20)
         self.write(f"Final score: {self.score}", move=False, align="center", font=('Arial', 20, 'normal'))
